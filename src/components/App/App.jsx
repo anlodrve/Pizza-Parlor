@@ -18,7 +18,7 @@ function App() {
   //fetch pizzas
   const fetchPizzas = () => {
     axios.get("api/pizza").then((response) => {
-      console, log(response);
+      console.log(response);
       dispatch({
         type: "SET_PIZZAS",
         payload: response.data,
