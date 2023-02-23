@@ -12,12 +12,12 @@ import logger from "redux-logger";
 // }; // John thinks this is important for some reason
 // He doesnt really know why
 
-const cart = (state = [], action) => {
+const userInformation = (state = [], action) => {
   return state;
 };
 
-const orderList = (state = [], action) => {
-  if (action.type === "SET_PIZZAS") {
+const cart = (state = [], action) => {
+  if (action.type === "SET_CART") {
     return action.payload;
   }
   return state;
@@ -26,8 +26,8 @@ const orderList = (state = [], action) => {
 const storeInstance = createStore(
   combineReducers({
     // pizzaTypes,
+    userInformation,
     cart,
-    orderList,
   }),
   applyMiddleware(logger)
 );
