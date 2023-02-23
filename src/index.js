@@ -13,27 +13,30 @@ import logger from "redux-logger";
 // He doesnt really know why
 
 const cart = (state = [], action) => {
-	return state;
+  return state;
 };
 
 const orderList = (state = [], action) => {
-	return state;
+  if (action.type === "SET_PIZZAS") {
+    return action.payload;
+  }
+  return state;
 };
 
 const storeInstance = createStore(
-	combineReducers({
-		// pizzaTypes,
-		cart,
-		orderList,
-	}),
-	applyMiddleware(logger)
+  combineReducers({
+    // pizzaTypes,
+    cart,
+    orderList,
+  }),
+  applyMiddleware(logger)
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-	<React.StrictMode>
-		<Provider store={storeInstance}>
-			<App />
-		</Provider>
-	</React.StrictMode>
+  <React.StrictMode>
+    <Provider store={storeInstance}>
+      <App />
+    </Provider>
+  </React.StrictMode>
 );
