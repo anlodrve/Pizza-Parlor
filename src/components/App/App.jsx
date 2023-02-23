@@ -18,7 +18,7 @@ function App() {
   //fetch pizzas
   const fetchPizzas = () => {
     axios.get("api/pizza").then((response) => {
-      console, log(response);
+      console.log(response);
       dispatch({
         type: "SET_PIZZAS",
         payload: response.data,
@@ -63,8 +63,6 @@ function App() {
         <Route exact path="/admin">
           <Admin />
         </Route>
-        <img src="images/pizza_photo.png" />
-        <p>Pizza is great.</p>
       </div>
     </Router>
   );
