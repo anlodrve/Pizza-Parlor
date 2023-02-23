@@ -63,8 +63,6 @@ function App() {
         <Route exact path="/admin">
           <Admin />
         </Route>
-        <img src="images/pizza_photo.png" />
-        <p>Pizza is great.</p>
       </div>
     </Router>
   );

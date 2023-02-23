@@ -12,7 +12,16 @@ import logger from "redux-logger";
 // }; // John thinks this is important for some reason
 // He doesnt really know why
 
+<<<<<<< HEAD
+//I do! its for when we do quanity 💯
+
 const userInformation = (state = [], action) => {
+  if (action.type === "SET_USER_INFORMATION") {
+    return action.payload;
+  }
+=======
+const userInformation = (state = [], action) => {
+>>>>>>> 7c251c02813b49c84d746b2aef415f74388b2558
   return state;
 };
 
