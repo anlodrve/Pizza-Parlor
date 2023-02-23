@@ -28,33 +28,39 @@ function Admin() {
 		})
 	}
 
+	const [timeStamp, setTimeStamp ] = useState('');
+
+	function formatTimeStamp(timeStamp) {
+	  const [date, time] = timeStamp.split('T');
+	  const [year, month, day] = date.split('-');
+	  const [hour, minute, seconds] = time.split(':');
+	  const timeOfDay = hour > 12 ? 'pm' : 'am';
+	  return `${month}/${day}/${year} at ${hour}:${minute}${timeOfDay}`;
+	}
+	console.log(formatTimeStamp(timeStamp));
+
+
 	return (
 		<>
 		<h1>Admin</h1>
-		<tr>
+		<table>
+        	<tbody>
+           	 	<tr>
+              		<th>Name</th>
+			 		<th>Time Order Placed</th>
+			  		<th>Type</th>
+			  		<th>Cost</th>
+            	</tr>
 			{allOrders.map((order, i) => 
-			<td key={i}>{order.customer_name}</td>
-			</tr>
-			) }
-
-
-<table>
-        <tbody>
-            <tr>
-              <th>Airline</th>
-            </tr>
-            <AirlineList />
-            </tbody>
+				<tr key={i}>
+					<td>{order.customer_name}</td>
+					<td {(order.time)}>{formatTimeStamp()}</td>
+					<td>{order.type}</td>
+					<td>{order.total}</td>
+				</tr>
+				)}
+			</tbody>
         </table>
-
-		<tr>
-            {airlines.map(airline => {
-                return(
-                    <td>{airline}</td>
-                )
-            })}
-        </tr>
-
 		</>
 	);
 
