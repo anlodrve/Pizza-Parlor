@@ -9,28 +9,7 @@ import PizzaList from "../PizzaList/PizzaList";
 import Checkout from "../Checkout/Checkout.jsx";
 import Admin from "../Admin/Admin.jsx";
 
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-
 function App() {
-  const dispatch = useDispatch();
-
-  //fetch pizzas
-  const fetchPizzas = () => {
-    axios.get("api/pizza").then((response) => {
-      console.log(response);
-      dispatch({
-        type: "SET_PIZZAS",
-        payload: response.data,
-      });
-    });
-  };
-
-  //fetch on page load
-  useEffect(() => {
-    fetchPizzas();
-  }, []);
-
   return (
     <Router>
       <div className="App">
@@ -45,9 +24,6 @@ function App() {
             </li>
             <li>
               <Link to="/checkout">Checkout</Link>
-            </li>
-            <li>
-              <Link to="/admin">Checkout</Link>
             </li>
           </ul>
         </header>
