@@ -12,28 +12,40 @@ import logger from "redux-logger";
 // }; // John thinks this is important for some reason
 // He doesnt really know why
 
-const cart = (state = [], action) => {
-	return state;
+//I do! its for when we do quanity 💯
+
+const userInformation = (state = [], action) => {
+  if (action.type === "SET_USER_INFORMATION") {
+    return action.payload;
+  }
+  return state;
 };
 
-const orderList = (state = [], action) => {
-	return state;
+const cart = (state = [], action) => {
+  if (action.type === "SET_CART") {
+    return action.payload;
+  } else if (action.type === "REMOVE_FROM_CART") {
+    const index = state.indexOf(action.payload);
+    const newState = state.splice(index, 1);
+    return newState;
+  }
+  return state;
 };
 
 const storeInstance = createStore(
-	combineReducers({
-		// pizzaTypes,
-		cart,
-		orderList,
-	}),
-	applyMiddleware(logger)
+  combineReducers({
+    // pizzaTypes,
+    cart,
+    userInformation,
+  }),
+  applyMiddleware(logger)
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-	<React.StrictMode>
-		<Provider store={storeInstance}>
-			<App />
-		</Provider>
-	</React.StrictMode>
+  <React.StrictMode>
+    <Provider store={storeInstance}>
+      <App />
+    </Provider>
+  </React.StrictMode>
 );
