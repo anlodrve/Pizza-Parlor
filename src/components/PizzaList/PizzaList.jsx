@@ -1,85 +1,47 @@
 import "./PizzaList.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+
 import axios from "axios";
-import PizzaItem from "react";
+import PizzaItem from "../PizzaItem/PizzaItem.jsx";
 
-function PizzaList({order,fetchOrders}) {
+function PizzaList() {
+  const history = useHistory();
 
-const dispatch = useDispatch ();
-	useEffect(()=> {
-		getPizzas();
-		// deletePizza();
-	},[])
+  const [pizzasOnDom, setPizzasOnDom] = useState([]);
 
-	const history = useHistory();
+  //fetch pizzas form the database
+  const fetchPizzas = () => {
+    axios.get("api/pizza").then((response) => {
+      console.log(response.data);
+      setPizzasOnDom(response.data);
+    });
+  };
 
-	const sendToForm = () => {
-		history.push('/form')
-		console.log(sendToForm)
-	} 
+  //fetch pizzas on page load
+  useEffect(() => {
+    fetchPizzas();
+  }, []);
 
-	const [isButtonClick,setIsButtonClick] = useState(false)
+  return (
+    <div>
+      <h1>Pizza</h1>
+      <div>
+        {pizzasOnDom.map((pizza) => (
+          <PizzaItem key={pizza.id} pizza={pizza} />
+        ))}
+      </div>
 
-
-	const getPizzas = () => {
-		axios ({
-			method: 'GET',
-			url:	'/api/pizza'
-		}) .then ((response)=>{
-			console.log('in GET pizza')
-			dispatch ({
-				type: 'SET_CART',
-				payload: response.data
-			})
-		}).catch ((error)=>{
-			console.log('Error in get pizza',error)
-		})
-
-	};
-
-	// const deletePizza = ()=> {
-    //     axios.delete(`/api/order/${order.id}`)
-    //     .then(() => {
-    //         console.log('delete order success');
-    //         fetchOrders();
-	// 		dispatch ({
-	// 			type: 'SET_CART',
-	// 			payload:response.data	
-	// 		})
-    //     })
-    //     .catch
-	// 	(err => console.log('delete order failed', err))
-    // }
-
-	function deletePizza () {
-	dispatch ({
-		type: 'REMOVE_FROM_CART',
-		payload: response.data
-	})
-		setIsButtonClick(isButtonClick)
-	}
-	
-	
-	const pizzaList = useSelector ((store)=> store.pizzaList)
-
-	return ( 
-	
-		<div>
-			<h1>Pizza</h1>
-		{pizzaList?.map((pizza) => 
-		<PizzaItem key={pizza.id} pizza={pizza}
-	/> 
-	)} 
-
-	<button className='pizzaNextBtn' onClick={sendToForm}>Next</button>
-	<button onClick={deletePizza}> Delete </button> 
-
-	</div>
-			
-	
-	)
+      <button
+        className="pizzaNextBtn"
+        onClick={() => {
+          history.push("/form");
+        }}
+      >
+        Next
+      </button>
+    </div>
+  );
 }
 
 export default PizzaList;
