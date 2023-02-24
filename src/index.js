@@ -45,7 +45,6 @@ const cart = (state = { total: 0, pizzas: [] }, action) => {
 
 const storeInstance = createStore(
   combineReducers({
-    // pizzaTypes,
     cart,
     userInformation,
   }),

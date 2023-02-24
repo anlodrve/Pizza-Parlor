@@ -25,9 +25,6 @@ function App() {
             <li>
               <Link to="/checkout">Checkout</Link>
             </li>
-            <li>
-              <Link to="/admin">Checkout</Link>
-            </li>
           </ul>
         </header>
         <Route exact path="/">
